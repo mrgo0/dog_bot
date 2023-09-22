@@ -5,7 +5,7 @@ import random
 from translate import Translator
 
 
-API_TOKEN = '6569910994:AAFMZfIHqNJaVoBEKn0Qz4Ngc0UN5H0y9Dc'
+API_TOKEN = 'YOUR_TOKEN'
 
 bot = telebot.TeleBot(API_TOKEN)
 
