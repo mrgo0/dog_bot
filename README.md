@@ -5,7 +5,7 @@
 /start - начало работы
 /help - небольшая подсказка
 
-Ссылка на чат-бота: https://web.telegram.org/k/#@catpunk00_bot
+Ссылка на чат-бота: https://t.me/catpunk00_bot
 
 
 
