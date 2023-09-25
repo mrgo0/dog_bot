@@ -13,7 +13,7 @@ def send_welcome(message):
     bot.reply_to(message, "Привет! Пришли мне название породы собаки, фотографию которой хочешь увидеть")
 
 
-# Небольшая подсказска
+# Небольшая подсказка
 @bot.message_handler(commands=['help'])
 def send_help_message(message):
     if message.text == '/help':
