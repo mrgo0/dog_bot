@@ -7,17 +7,19 @@ TOKEN = 'YOUR_TOKEN'
 bot = telebot.TeleBot(TOKEN)
 
 
+# Приветствие
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     bot.reply_to(message, "Привет! Пришли мне название породы собаки, фотографию которой хочешь увидеть")
 
 
+# Небольшая подсказска
 @bot.message_handler(commands=['help'])
 def send_help_message(message):
     if message.text == '/help':
         bot.reply_to(message, "/start - начать общение с ботом ")
 
-
+# Получаем породу собаки, переводим ее с русского на английский язык, получаем случайную фотографию по породе
 @bot.message_handler(content_types=['text'])
 def get_breed(message):
     translator = GoogleTranslator(source='ru', target='en')
