@@ -1,26 +1,33 @@
 import telebot
-from telebot import types
 import requests
-import random
-from translate import Translator
+from deep_translator import GoogleTranslator
 
 
-API_TOKEN = 'YOUR_TOKEN'
-
-bot = telebot.TeleBot(API_TOKEN)
+TOKEN = 'YOUR_TOKEN'
+bot = telebot.TeleBot(TOKEN)
 
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    bot.reply_to(message, "Привет! Введите название породы собаки, чтобы я прислал фотографию")
+    bot.reply_to(message, "Привет! Пришли мне название породы собаки, фотографию которой хочешь увидеть")
+
+
+@bot.message_handler(commands=['help'])
+def send_help_message(message):
+    if message.text == '/help':
+        bot.reply_to(message, "/start - начать общение с ботом ")
 
 
 @bot.message_handler(content_types=['text'])
 def get_breed(message):
-    translator = Translator(from_lang="russian", to_lang="english")
-    dog_breed = message.text.lower()
+    translator = GoogleTranslator(source='ru', target='en')
+    dog_breed = message.text
     dog_breed = translator.translate(dog_breed).lower()
-    url = f'https://dog.ceo/api/breed/{dog_breed}/images/random'
+    if len(dog_breed.split()) == 2:
+        first, second = dog_breed.split()
+        url = f'https://dog.ceo/api/breed/{second}/{first}/images/random'
+    else:
+        url = f'https://dog.ceo/api/breed/{dog_breed}/images/random'
     response = requests.get(url)
     data = response.json()
     if data['status'] == 'success':
@@ -31,3 +38,4 @@ def get_breed(message):
 
 
 bot.polling(none_stop=True)
+
